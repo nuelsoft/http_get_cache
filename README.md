@@ -1,6 +1,6 @@
-# http_get_cache
+# HTTP Get Cache
 
-A cache wrapper for http get requests
+A cache wrapper for http GET requests
 This helps you achieve an "offline mode" for your flutter application.
 
 ## Installation
