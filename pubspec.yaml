@@ -1,6 +1,6 @@
 name: http_get_cache
 description: A cache wrapper for http get requests
-version: 0.0.1
+version: 0.0.2
 homepage: "https://github.com/nuelsoft/http_get_cache"
 
 environment:
