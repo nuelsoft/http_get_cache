@@ -13,7 +13,7 @@ extension ResponseToJson on Response {
 
 extension MapToResponse on Map<String, dynamic> {
   Response get response => Response(this["body"], this["statusCode"],
-      headers: this["headers"],
+      headers: Map<String, String>.from(this["headers"] ?? {}),
       isRedirect: this["isRedirect"],
       persistentConnection: this["persistentConnection"],
       reasonPhrase: this["reasonPhrase"]);

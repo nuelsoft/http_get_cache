@@ -5,7 +5,9 @@ import 'util.dart';
 class GetCache {
   final List<String> blackList;
 
-  static GetStorage _store = GetStorage("get_cache");
+  static late GetStorage _store;
+
+  static String _namespace = "get_storage";
 
   static GetCache? _instance;
 
@@ -15,8 +17,11 @@ class GetCache {
     return _instance!;
   }
 
-  static GetCache initialize({List<String> blackList = const []}) {
+  static Future<GetCache> initialize({List<String> blackList = const []}) async {
+    await GetStorage.init(_namespace);
+    _store = GetStorage(_namespace);
     _instance = GetCache._internal();
+
     return _instance!;
   }
 
@@ -24,11 +29,11 @@ class GetCache {
       : blackList = blackList;
 
   Future<http.Response> get(Uri uri,
-      {Map<String, dynamic>? header, bool useCache = true}) async {
+      {Map<String, String>? headers, bool useCache = true}) async {
     String path = "${uri.path}?${uri.query}";
 
     try {
-      final response = await http.get(uri);
+      final response = await http.get(uri, headers: headers);
       if (useCache) _store.write(path, response.json);
       return response;
     } catch (e) {
